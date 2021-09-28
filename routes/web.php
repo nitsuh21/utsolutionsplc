@@ -14,3 +14,4 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', 'App\Http\Controllers\TemplateController@index');
+Route::get('/about', 'App\Http\Controllers\TemplateController@about');
