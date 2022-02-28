@@ -1,8 +1,8 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\Models\news;
-use App\Models\blog;
+use App\Models\News;
+use App\Models\Blog;
 use Illuminate\Http\Request;
 
 class SearchController extends Controller
