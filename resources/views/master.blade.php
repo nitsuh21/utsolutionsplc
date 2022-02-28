@@ -52,6 +52,8 @@
           <li><a class="nav-link scrollto " href="#partners">Partners</a></li>
           <li><a class="nav-link scrollto " href="#clients">Clients</a></li>
           <li><a class="nav-link scrollto" href="#faq">FAQ</a></li>
+          <li><a class="nav-link scrollto" href="/news">News</a></li>
+          <li><a class="nav-link scrollto" href="/blogs">Blogs</a></li>
           <li><a class="nav-link scrollto" href="#contact">Contact</a></li>
           <li><a class="getstarted scrollto" href="https://www.utsolutionsplc.com/helpdesk">Help Desk</a></li>
         </ul>
@@ -303,7 +305,7 @@
       </div>
     </section><!-- End Partners Section -->
 
-        <!-- ======= Clients Section ======= -->
+<!-- ======= Clients Section ======= -->
         <section id="clients" class="testimonials section-bg">
       <div class="container" data-aos="fade-up">
 
@@ -508,6 +510,8 @@
               </div>
             </div><!-- End testimonial item -->
 
+          
+
             <div class="swiper-slide">
               <div class="testimonial-item">
                 <p>
@@ -585,6 +589,40 @@
 
       </div>
     </section><!-- End Testimonials Section -->
+
+       <!-- ======= News Section ======= -->
+       <section id="news" class="services section-bg">
+      <div class="container" data-aos="fade-up">
+
+        <div class="section-title">
+          <h2>News</h2>
+          <a href="/news"><h5>Read All News</h5></a>
+        </div>
+
+        <div class="row gy-4">
+        @foreach($news as $n)
+				@if(is_null($news))
+          <p>news</p>
+          @else
+          <div class="col-lg-4 col-md-6 d-flex align-items-stretch" data-aos="zoom-in" data-aos-delay="100">
+          <div class="card">
+          <img class="card-img-top" src="{{asset('storage/'.$n->image)}}" alt="Card image cap">
+          <div class="card-body">
+            <h5 class="card-title">{{$n->Title}}</h5>
+            <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+            <a href="{{route('detailnews.show',$n->id)}}" class="btn btn-primary">Read More</a>
+          </div>
+          <div class="card-footer">
+            <small class="text-muted">Last updated {{$n->updated_at}}</small>
+          </div>
+        </div>
+        </div>
+        @endif
+        @endforeach
+        </div>
+
+      </div>
+    </section><!-- news Section -->
 
     <!-- ======= Frequently Asked Questions Section ======= -->
     <section id="faq" class="faq">
@@ -671,7 +709,7 @@
             <div class="info-box  mb-4">
               <i class="bx bx-envelope"></i>
               <h3>Email Us</h3>
-              <p>contact@example.com</p>
+              <p>contact@utsolutionsplc.com</p>
             </div>
           </div>
 
@@ -692,8 +730,9 @@
           </div>
 
           <div class="col-lg-6">
-            <form action="forms/contact.php" method="post" role="form" class="php-email-form">
-              <div class="row">
+            <form action="{{route('contact.send')}}" method="POST" role="form" class="">
+            @csrf  
+            <div class="row">
                 <div class="col-md-6 form-group">
                   <input type="text" name="name" class="form-control" id="name" placeholder="Your Name" required>
                 </div>
@@ -705,14 +744,15 @@
                 <input type="text" class="form-control" name="subject" id="subject" placeholder="Subject" required>
               </div>
               <div class="form-group mt-3">
-                <textarea class="form-control" name="message" rows="5" placeholder="Message" required></textarea>
+                <textarea class="form-control" name="message" rows="5" id="message" placeholder="Message" required></textarea>
               </div>
               <div class="my-3">
-                <div class="loading">Loading</div>
-                <div class="error-message"></div>
-                <div class="sent-message">Your message has been sent. Thank you!</div>
+              <div class="error-message"></div>
+              @if(Session::has('message_sent'))
+              <div class="sent-message">Your message has been sent. Thank you!</div>
+              @endif
               </div>
-              <div class="text-center"><button type="submit">Send Message</button></div>
+              <div class="text-center mt-3"><button class="btn-primary" type="submit">Send Message</button></div>
             </form>
           </div>
 
@@ -767,7 +807,8 @@
           <div class="col-lg-4 col-md-6 footer-newsletter">
             <h4>Join Our Newsletter</h4>
             <p>Stay informed about upcoming events</p>
-            <form action="" method="post">
+              <form action="subscribe" method="get">
+								@csrf
               <input type="email" name="email"><input type="submit" value="Subscribe">
             </form>
           </div>
