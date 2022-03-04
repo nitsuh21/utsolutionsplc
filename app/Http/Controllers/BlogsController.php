@@ -11,7 +11,7 @@ class BlogsController extends Controller
         $blogs = Blog::orderBy('id','desc')->latest()->take(6)->get();
         $blog = Blog::find(1);
         $populars = Blog::orderby('viewcount','desc')->take(5)->get();
-        return view('blogs',['blogs'=>$blogs,'populars'=>$populars]);
+        return view('Blogs',['blogs'=>$blogs,'populars'=>$populars]);
     }
     public function detailblog($id){
         $blog= Blog::find($id);
