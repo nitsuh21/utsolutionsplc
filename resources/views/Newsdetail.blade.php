@@ -479,7 +479,7 @@
 									<span class="m-rl-3">-</span>
 
 									<span>
-										{{$ut->created_at}}
+										{{$news->created_at}}
 									</span>
 								</span>
 
